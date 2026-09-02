@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Business Email Unscramble Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #2c3e50;
+      padding: 15px;
+      margin: 0;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-size: 22px;
+      color: #1a252f;
+    }
+    p.instructions {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #7f8c8d;
+      margin-bottom: 8px;
+    }
+    #selected-list {
+      min-height: 80px;
+      background: #ffffff;
+      border: 2px dashed #bdc3c7;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .placeholder-text {
+      color: #bdc3c7;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 25px;
+    }
+    .box {
+      background: #ffffff;
+      border: 1.5px solid #dcdfe6;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.4;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: flex-start;
+    }
+    .box:active {
+      transform: scale(0.98);
+    }
+    .number-tag {
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 50%;
+      min-width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .text-content {
+      flex: 1;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    button {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-check {
+      background: #27ae60;
+      color: white;
+      box-shadow: 0 4px 6px rgba(39,174,96,0.2);
+    }
+    .btn-check:active {
+      background: #219150;
+    }
+    .btn-reset {
+      background: #95a5a6;
+      color: white;
+    }
+    .btn-reset:active {
+      background: #7f8c8d;
+    }
+    #result {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Business Email Unscramble</h2>
+  <p class="instructions">Tap snippets in the pool below in the correct order (1 to 7) to construct the email.</p>
+
+  <div class="section-title">Your Reconstructed Email:</div>
+  <div id="selected-list">
+    <div class="placeholder-text" id="placeholder">Tap items below to build your sequence here...</div>
+  </div>
+
+  <div class="section-title">Snippet Pool:</div>
+  <div id="pool">
+    <div class="box" id="item-1" onclick="selectItem('1', 'Regards,<br><strong>Cindy Yau</strong><br>General Manager')">
+      <div class="text-content">Regards,<br><strong>Cindy Yau</strong><br>General Manager</div>
+    </div>
+    <div class="box" id="item-2" onclick="selectItem('2', 'Attached please find the leaflet for your reference.')">
+      <div class="text-content">Attached please find the leaflet for your reference.</div>
+    </div>
+    <div class="box" id="item-3" onclick="selectItem('3', 'Dear Mr Ma,')">
+      <div class="text-content">Dear Mr Ma,</div>
+    </div>
+    <div class="box" id="item-4" onclick="selectItem('4', 'Please feel free to contact me if you have any further questions.')">
+      <div class="text-content">Please feel free to contact me if you have any further questions.</div>
+    </div>
+    <div class="box" id="item-5" onclick="selectItem('5', 'Also, would you like us to design the event materials for you?')">
+      <div class="text-content">Also, would you like us to design the event materials for you?</div>
+    </div>
+    <div class="box" id="item-6" onclick="selectItem('6', 'Thank you for your email regarding the organization of a beauty fair.')">
+      <div class="text-content">Thank you for your email regarding the organization of a beauty fair.</div>
+    </div>
+    <div class="box" id="item-7" onclick="selectItem('7', 'We provide a wide range of services such as venue decoration, photography and filming, model arrangement, etc.')">
+      <div class="text-content">We provide a wide range of services such as venue decoration, photography and filming, model arrangement, etc.</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-check" onclick="checkAnswer()">Check Answer</button>
+    <button class="btn-reset" onclick="resetGame()">Reset</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const correctOrder = ["3", "6", "7", "5", "2", "4", "1"];
+    let userOrder = [];
+
+    function selectItem(id, textHtml) {
+      if (userOrder.includes(id)) return;
+      
+      userOrder.push(id);
+      
+      const placeholder = document.getElementById('placeholder');
+      if (placeholder) placeholder.style.display = 'none';
+
+      const selectedBox = document.createElement('div');
+      selectedBox.className = 'box';
+      selectedBox.innerHTML = `<div class="number-tag">${userOrder.length}</div><div class="text-content">${textHtml}</div>`;
+      
+      document.getElementById('selected-list').appendChild(selectedBox);
+      
+      const originalItem = document.getElementById(`item-${id}`);
+      originalItem.style.opacity = '0.25';
+      originalItem.style.pointerEvents = 'none';
+    }
+
+    function checkAnswer() {
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+
+      if (userOrder.length < 7) {
+        resultDiv.className = 'error';
+        resultDiv.textContent = "⚠️ Please tap all 7 snippets before checking your answer!";
+        return;
+      }
+      
+      const isCorrect = userOrder.every((val, index) => val === correctOrder[index]);
+
+      if (isCorrect) {
+        resultDiv.className = 'success';
+        resultDiv.textContent = "🎉 Excellent! The email sequence is completely correct.";
+      } else {
+        resultDiv.className = 'error';
+        resultDiv.textContent = "❌ Incorrect sequence. Review the email flow, tap 'Reset', and try again!";
+      }
+    }
+
+    function resetGame() {
+      userOrder = [];
+      const selectedList = document.getElementById('selected-list');
+      selectedList.innerHTML = '<div class="placeholder-text" id="placeholder">Tap items below to build your sequence here...</div>';
+      
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'none';
+      resultDiv.textContent = '';
+      resultDiv.className = '';
+
+      for (let i = 1; i <= 7; i++) {
+        const item = document.getElementById(`item-${i}`);
+        item.style.opacity = '1';
+        item.style.pointerEvents = 'auto';
+      }
+    }
+  </script>
+</body>
+</html>
